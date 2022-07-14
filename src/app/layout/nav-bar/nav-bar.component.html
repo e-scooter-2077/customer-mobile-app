@@ -1,0 +1,13 @@
+<a mat-button routerLink="/home" routerLinkActive="active">Home</a>
+<a mat-button routerLink="/stats/global" routerLinkActive="active">Stats</a>
+<span *ngIf="true; then template1 else template2"></span>
+<a mat-button routerLink="/info/how-to-play" routerLinkActive="active">Help</a>
+<a mat-button routerLink="/info" routerLinkActive="active">Info</a>
+
+<ng-template #template1>
+  <a mat-button routerLink="/account/login" routerLinkActive="active">Login</a>
+</ng-template>
+<ng-template #template2>
+  <a mat-button routerLink="/home" routerLinkActive="active" (click)="this.logout()">Logout</a>
+</ng-template>
+<!--span>{{title}}</span-->

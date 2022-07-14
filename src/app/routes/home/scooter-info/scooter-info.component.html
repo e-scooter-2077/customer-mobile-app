@@ -1,0 +1,18 @@
+<span *ngIf="scooter; then scooterDefined else scooterUndefined"></span>
+
+<ng-template #scooterDefined>
+  <p>ID: {{scooter?.id}}</p>
+  <p>Battery level: {{scooter?.batteryLevel}}%</p>
+  <p>Locked: {{scooter?.locked}}</p>
+  <p>Rented: {{scooter?.rented}}</p>
+  <p>Enabled: {{scooter?.enabled}}</p>
+  <p>Standby: {{scooter?.standby}}</p>
+  <div class=button>
+    <button (click)="rentScooter(scooter!)" *ngIf="scooter?.enabled">RENT</button>
+    <button (click)="ringScooter(scooter!)" *ngIf="scooter?.enabled">RING</button>
+  </div>
+</ng-template>
+
+<ng-template #scooterUndefined>
+  <p>Scooter info not available.</p>
+</ng-template>

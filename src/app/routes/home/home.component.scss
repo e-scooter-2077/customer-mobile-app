@@ -1,0 +1,23 @@
+.general {
+  display: flex;
+}
+
+.column {
+  width: 25vw;
+  height: 93vh;
+  padding: 0.5vw;
+  overflow: auto;
+}
+
+:host ::ng-deep {
+  div .map-container {
+    margin: auto;
+    height: 93vh !important;
+    width: 73vw !important;
+  }
+}
+
+button {
+  width: 100%;
+  margin-bottom: 0.5vh;
+}

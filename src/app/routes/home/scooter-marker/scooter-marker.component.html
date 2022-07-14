@@ -1,0 +1,9 @@
+<map-marker #marker="mapMarker"
+        [position]="{
+          'lat': scooter.position.latitude,
+          'lng': scooter.position.longitude
+        }"
+        [options]="{draggable: false, icon: iconUrl, title: title}"
+        (mapClick)="click.emit()"
+      >
+</map-marker>

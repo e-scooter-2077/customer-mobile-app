@@ -1,0 +1,21 @@
+<div class="general">
+  <mat-nav-list cdkscrollable role="navigation" class="column">
+    <button mat-raised-button *ngFor="let s of scooters"
+        (click)="centerScooter(s.id)">{{s.id}}</button>
+  </mat-nav-list>
+  <div class="map">
+    <google-map
+      [zoom]="zoom"
+      [center]="{
+        'lat': center.latitude,
+        'lng': center.longitude
+      }"
+    >
+      <app-scooter-marker #marker *ngFor="let s of scooters" [scooter]="s" (click)="openInfoWindow(marker)"></app-scooter-marker>
+      <map-info-window>
+        <app-scooter-info [scooter]="highlightedScooter"
+                          (buttonClicked)="buttonClickedOnInfo()"></app-scooter-info>
+      </map-info-window>
+    </google-map>
+  </div>
+</div>
