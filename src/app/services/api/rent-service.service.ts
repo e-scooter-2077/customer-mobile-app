@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { Scooter } from 'src/app/model/scooter';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RentServiceService {
 
-  private baseUrl: string = 'https://escooter-rent-microservice.azurewebsites.net'
+  private baseUrl: string = environment.rentService
 
   constructor(private httpClient: HttpClient) {}
 

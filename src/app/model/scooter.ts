@@ -10,4 +10,8 @@ export class Scooter {
     public enabled: boolean,
     public standby: boolean
   ) {}
+
+  canBeRented(): boolean {
+    return !this.rented && this.enabled && !this.standby
+  }
 }

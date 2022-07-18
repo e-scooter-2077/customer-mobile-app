@@ -16,6 +16,7 @@ import { ScooterMarkerComponent } from './routes/home/scooter-marker/scooter-mar
 import { LayoutComponent } from './layout/layout.component';
 import { NavBarComponent } from './layout/nav-bar/nav-bar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoginFormComponent } from './routes/login/login-form/login-form.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ScooterMarkerComponent,
     LayoutComponent,
     NavBarComponent,
+    LoginFormComponent,
   ],
   imports: [
     AppRoutingModule,

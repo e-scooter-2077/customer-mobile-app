@@ -1,9 +1,11 @@
 import { Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { MapInfoWindow, MapMarker } from '@angular/google-maps';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Position } from 'src/app/model/position';
 import { Scooter } from 'src/app/model/scooter';
 import { ScooterTwinsService } from 'src/app/services/api/scooter-twins.service';
+import { LoginService } from 'src/app/services/login.service';
 import { ScooterMarkerComponent } from './scooter-marker/scooter-marker.component';
 
 @Component({
@@ -20,9 +22,15 @@ export class HomeComponent implements OnInit, OnDestroy {
   highlightedScooter?: Scooter;
   zoom = 17;
 
-  constructor(private scooterTwinsService: ScooterTwinsService) { }
+  constructor(
+    private scooterTwinsService: ScooterTwinsService,
+    private loginService: LoginService,
+    private router: Router) { }
 
   ngOnInit(): void {
+    if (!this.loginService.isLoggedIn()) {
+      this.router.navigate(['/login']);
+    }
     this.scooterSubscription = this.scooterTwinsService.getScooterTwins().subscribe(newScooters => {
       if (newScooters.length === 0) {
         return;

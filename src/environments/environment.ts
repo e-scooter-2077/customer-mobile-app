@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   dtGateway: 'https://escooter-dt-gateway.azurewebsites.net',
-  rentService: 'https://escooter-rent-microservice.azurewebsites.net'
+  rentService: 'https://escooter-rent-microservice.azurewebsites.net',
+  identityService: 'https://escooter-dt-gateway.azurewebsites.net'
 };
 
 /*
