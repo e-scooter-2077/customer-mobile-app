@@ -1,0 +1,84 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Angular CI
+
+on:
+  push:
+    tags:
+      - "*"
+    branches:
+      - "**"
+  pull_request:
+    branches:
+      - "**"
+
+jobs:
+  build:
+    name: Build & Test Angular Frontend
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.semver.outputs.version }}
+      should-release: ${{ steps.semver.outputs.should-release }}
+      is-prerelease: ${{ steps.semver.outputs.is-github-prerelease }}
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - id: semver
+        name: Checkout
+        uses: EasyDesk/action-semver-checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run-script build
+      - name: Test
+        run: npm run-script test-prod
+      - uses: actions/upload-artifact@v2
+        with:
+          name: static_site
+          path: ./dist
+  release:
+    name: GitHub Release
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: needs.build.outputs.should-release == 'true'
+    concurrency: release
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: static_site
+      - name: Zip build
+        run: zip -r admin_app.zip ./*
+      - name: Release
+        uses: EasyDesk/action-semver-release@v1
+        with:
+          version: ${{ needs.build.outputs.version }}
+          prerelease: ${{ needs.build.outputs.is-prerelease }}
+          files: |
+            admin_app.zip
+  deploy:
+    name: Deploy on GH pages
+    runs-on: ubuntu-latest
+    needs: [build, release]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run-script build-gh
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/admin-frontend-app
