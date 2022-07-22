@@ -22,15 +22,7 @@ export class RentServiceService {
       scooterId: scooter.id,
       customerId: customer.id
     }).pipe(
-      map(res =>
-        new Rent(
-          res.data.id,
-          res.data.scooterId,
-          res.data.customerId,
-          res.data.requestTimestamp,
-          res.data.confirmationInfo ? new RentConfirmationInfo(res.data.confirmationInfo.timestamp) : undefined,
-          res.data.cancellationInfo ? new RentCancellationInfo(res.data.cancellationInfo.reason) : undefined,
-          res.data.stopInfo ? new RentStopInfo(res.data.stopInfo.reason, res.data.stopInfo.timestamp) : undefined))
+      map(res => res.data.toRentModel())
     )
   }
 }
