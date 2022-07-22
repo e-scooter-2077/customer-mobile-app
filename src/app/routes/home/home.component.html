@@ -1,3 +1,7 @@
+<div class="toolbar">
+  <button mat-button (click)="logout()">Logout</button>
+  <mat-divider></mat-divider>
+</div>
 <div class="general">
   <mat-nav-list cdkscrollable role="navigation" class="column">
     <button mat-raised-button *ngFor="let s of scooters"

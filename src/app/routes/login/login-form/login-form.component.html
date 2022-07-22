@@ -1,4 +1,4 @@
 <h1>Select the user account to impersonate:</h1>
 <mat-action-list>
-  <button *ngFor="let c of customers" mat-list-item (click)="login(c.id)">{{ c.id }}</button>
+  <button *ngFor="let c of customers" mat-list-item (click)="login(c)">{{ c.username }}</button>
 </mat-action-list>

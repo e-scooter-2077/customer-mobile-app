@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { first } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 import { Scooter } from 'src/app/model/scooter';
 import { RentServiceService } from 'src/app/services/api/rent-service.service';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-scooter-info',
@@ -13,14 +14,20 @@ export class ScooterInfoComponent implements OnInit {
   @Output() buttonClicked = new EventEmitter<string>();
 
 
-  constructor(readonly rentService: RentServiceService) { }
+  constructor(
+    readonly rentService: RentServiceService,
+    private toastr: ToastrService,
+    private login: LoginService) { }
 
   ngOnInit(): void {
   }
 
   public rentScooter(scooter: Scooter) {
-    console.log("RENT");
-    this.buttonClicked.emit();
+    this.rentService
+      .rentScooter(scooter, this.login.getLoggedInCustomer())
+      .subscribe({
+        error: res => this.toastr.error(JSON.stringify(res.error.errors)),
+      });
   }
 
   public ringScooter(scooter: Scooter) {

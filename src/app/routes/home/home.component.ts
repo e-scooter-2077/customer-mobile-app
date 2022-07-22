@@ -97,4 +97,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     const accumulator = scooters.map(scooter => [scooter.position.latitude, scooter.position.longitude, 1]).reduce((prev, curr) => [prev[0] + curr[0], prev[1] + curr[1], prev[2] + curr[2]]);
     this.center = new Position(accumulator[0] / accumulator[2], accumulator[1] / accumulator[2]);
   }
+
+  logout() {
+    this.loginService.logout();
+    this.router.navigate(['/login']);
+  }
 }

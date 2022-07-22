@@ -17,6 +17,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { NavBarComponent } from './layout/nav-bar/nav-bar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginFormComponent } from './routes/login/login-form/login-form.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,9 @@ import { LoginFormComponent } from './routes/login/login-form/login-form.compone
     GoogleMapsModule,
     HttpClientModule,
     MatButtonModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatButtonModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

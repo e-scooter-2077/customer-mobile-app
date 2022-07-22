@@ -15,7 +15,7 @@ export class IdentityServiceService {
   constructor(private client: HttpClient){ }
 
   getCustomers(): Observable<Customer[]> {
-    return of([new Customer('1'), new Customer('2')])
+    return of([new Customer('1', 'mario'), new Customer('2', 'paolino')])
     return this.client.get<CustomerDTO[]>(this.baseUrl + '/customers').pipe(
       map(a => a.map(c => this._toCustomerModel(c)))
     )
@@ -23,7 +23,8 @@ export class IdentityServiceService {
 
   private _toCustomerModel(c: CustomerDTO): Customer {
     return new Customer(
-      c.id
+      c.id,
+      c.username
     )
   }
 }

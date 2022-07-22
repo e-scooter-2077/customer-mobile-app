@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { first } from 'rxjs';
 import { Customer } from 'src/app/model/customer';
 import { IdentityServiceService } from 'src/app/services/api/identity-service.service';
@@ -15,7 +16,8 @@ export class LoginFormComponent implements OnInit {
 
   constructor(
     private loginService: LoginService,
-    private identityService: IdentityServiceService) { }
+    private identityService: IdentityServiceService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.identityService.getCustomers().pipe(first()).subscribe(customers => {
@@ -24,8 +26,9 @@ export class LoginFormComponent implements OnInit {
     )
   }
 
-  login(id: string) {
-    this.loginService.login(id)
+  login(customer: Customer) {
+    this.loginService.login(customer)
+    this.router.navigate(['/'])
   }
 
 }
