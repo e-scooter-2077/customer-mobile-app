@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Scooter } from 'src/app/model/scooter';
 import { RentServiceService } from 'src/app/services/api/rent-service.service';
@@ -17,7 +18,8 @@ export class ScooterInfoComponent implements OnInit {
   constructor(
     readonly rentService: RentServiceService,
     private toastr: ToastrService,
-    private login: LoginService) { }
+    private login: LoginService,
+    private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -26,6 +28,10 @@ export class ScooterInfoComponent implements OnInit {
     this.rentService
       .rentScooter(scooter, this.login.getLoggedInCustomer())
       .subscribe({
+        next: rent => {
+          this.login.setCurrentRent(rent);
+          this.router.navigate(['/rent']);
+        },
         error: res => this.toastr.error(JSON.stringify(res.error.errors)),
       });
   }

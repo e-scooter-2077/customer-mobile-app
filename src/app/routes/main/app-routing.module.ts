@@ -3,15 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from '../../layout/layout.component';
 import { HomeComponent } from '../home/home.component';
 import { LoginFormComponent } from '../login/login-form/login-form.component';
+import { CurrentRentComponent } from '../rent/current-rent/current-rent.component';
 
 
 const routes: Routes = [
   {
     path: '', component: LayoutComponent,
     children: [
-      { path: '', component: HomeComponent },
+      { path: 'map', component: HomeComponent },
       { path: 'login', component: LoginFormComponent },
-      { path: '**', redirectTo: '' }
+      { path: 'rent', component: CurrentRentComponent },
+      { path: '**', redirectTo: 'map' }
     ]
   },
 ];

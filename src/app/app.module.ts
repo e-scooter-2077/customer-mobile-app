@@ -18,6 +18,7 @@ import { NavBarComponent } from './layout/nav-bar/nav-bar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginFormComponent } from './routes/login/login-form/login-form.component';
 import { ToastrModule } from 'ngx-toastr';
+import { CurrentRentComponent } from './routes/rent/current-rent/current-rent.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ToastrModule } from 'ngx-toastr';
     LayoutComponent,
     NavBarComponent,
     LoginFormComponent,
+    CurrentRentComponent,
   ],
   imports: [
     AppRoutingModule,
